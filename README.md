@@ -44,7 +44,7 @@ Crypto-Wizard will serve as:
 
 ---
 
-## 🪄 Made by Hulio-G
+## 🪄 Made by Hulio-G (Kevin Muiruri)
 
 > “We don’t need gold-plated gear. We give out third eyes.”
 
