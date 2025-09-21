@@ -1,11 +1,7 @@
-import { Navbar } from '@/components/navbar'
-import { TabNavigation } from '@/components/tab-navigation'
+'use client'
+
+import Desktop1 from '@/components/views/desktop1-nextjs'
 
 export default function Home() {
-  return (
-    <main className="min-h-screen bg-gray-50">
-      <Navbar />
-      <TabNavigation />
-    </main>
-  )
+  return <Desktop1 />
 }
