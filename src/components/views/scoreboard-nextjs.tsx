@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 
 import './scoreboard.css'
 
-const Scoreboard = (props) => {
+const Scoreboard = (props: any) => {
   return (
     <div className="scoreboard-container">
       <Helmet>
