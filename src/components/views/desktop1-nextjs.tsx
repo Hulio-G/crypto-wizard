@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
-import Head from 'next/head'
 
 import './desktop1.css'
 
@@ -154,9 +153,6 @@ const Desktop1 = (props: any) => {
   const getSelectedRegion = () => regionOptions.find(region => region.id === selectedRegion) || regionOptions[1]
   return (
     <div className="desktop1-container">
-      <Head>
-        <title>Crypto Wizard - The Ultimate Crypto Marketplace</title>
-      </Head>
       <div className="desktop1-desktop1">
         <img
           src="/rectangle1112-v6s.svg"
@@ -580,13 +576,13 @@ const Desktop1 = (props: any) => {
               </div>
             </div>
           </div>
-          <span className="desktop1-text12">Set Region </span>
+          <span className="desktop1-text12">Set Region</span>
           <img
             src="/rectangle52771-v9x-200h.png"
             alt="Rectangle52771"
             className="desktop1-rectangle5"
           />
-          <span className="desktop1-text13">Summarize </span>
+          <span className="desktop1-text13">Summarize</span>
           <img
             src="/rectangle62771-pxlr-200h.png"
             alt="Rectangle62771"

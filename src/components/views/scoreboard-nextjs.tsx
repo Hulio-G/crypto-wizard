@@ -1,15 +1,10 @@
 import React from 'react'
 
-import { Helmet } from 'react-helmet'
-
 import './scoreboard.css'
 
 const Scoreboard = (props: any) => {
   return (
     <div className="scoreboard-container">
-      <Helmet>
-        <title>exported project</title>
-      </Helmet>
       <div className="scoreboard-scoreboard">
         <div className="scoreboard-hovering1">
           <span className="scoreboard-text1">Purchase History</span>
