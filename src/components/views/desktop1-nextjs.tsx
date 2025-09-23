@@ -4,15 +4,43 @@ import Head from 'next/head'
 
 import './desktop1.css'
 
-const Desktop1 = (props) => {
+type SearchResult = {
+  id: number;
+  platform: string;
+  username: string;
+  content: string;
+  link: string;
+};
+
+const Desktop1 = (props: any) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedAPI, setSelectedAPI] = useState('wizardhat')
   const [selectedRegion, setSelectedRegion] = useState('us')
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [showRegionDropdown, setShowRegionDropdown] = useState(false)
+
+  // API options for selection
+  const apiOptions = [
+    { id: 'facebook', name: 'Facebook' },
+    { id: 'twitter', name: 'Twitter' },
+    { id: 'instagram', name: 'Instagram' },
+    { id: 'reddit', name: 'Reddit' },
+    { id: 'tiktok', name: 'TikTok' },
+    { id: 'youtube', name: 'YouTube' },
+    { id: 'wizardhat', name: 'Wizard Hat' }
+  ]
+
+  // Region options for selection
+  const regionOptions = [
+    { id: 'global', name: 'Global' },
+    { id: 'us', name: 'United States' },
+    { id: 'eu', name: 'Europe' },
+    { id: 'asia', name: 'Asia' }
+  ]
 
   // API fetch functions
-  const fetchFacebook = async (query, region) => {
+  const fetchFacebook = async (query: any, region: any) => {
     // Mock API call - replace with actual Facebook API
     return [
       { id: 1, platform: 'Facebook', username: 'CryptoNews', content: `Facebook post about ${query}`, link: '#' },
@@ -20,7 +48,7 @@ const Desktop1 = (props) => {
     ]
   }
 
-  const fetchTwitter = async (query, region) => {
+  const fetchTwitter = async (query: any, region: any) => {
     // Mock API call - replace with actual Twitter API
     return [
       { id: 1, platform: 'Twitter', username: '@cryptoexpert', content: `Tweet about ${query}`, link: '#' },
@@ -28,7 +56,7 @@ const Desktop1 = (props) => {
     ]
   }
 
-  const fetchInstagram = async (query, region) => {
+  const fetchInstagram = async (query: any, region: any) => {
     // Mock API call - replace with actual Instagram API
     return [
       { id: 1, platform: 'Instagram', username: 'crypto_lifestyle', content: `Instagram post about ${query}`, link: '#' },
@@ -36,7 +64,7 @@ const Desktop1 = (props) => {
     ]
   }
 
-  const fetchReddit = async (query, region) => {
+  const fetchReddit = async (query: any, region: any) => {
     // Mock API call - replace with actual Reddit API
     return [
       { id: 1, platform: 'Reddit', username: 'r/cryptocurrency', content: `Reddit discussion: ${query}`, link: '#' },
@@ -44,7 +72,7 @@ const Desktop1 = (props) => {
     ]
   }
 
-  const fetchTikTok = async (query, region) => {
+  const fetchTikTok = async (query: any, region: any) => {
     // Mock API call - replace with actual TikTok API
     return [
       { id: 1, platform: 'TikTok', username: '@cryptotok', content: `TikTok video about ${query}`, link: '#' },
@@ -52,7 +80,7 @@ const Desktop1 = (props) => {
     ]
   }
 
-  const fetchYouTube = async (query, region) => {
+  const fetchYouTube = async (query: any, region: any) => {
     // Mock API call - replace with actual YouTube API
     return [
       { id: 1, platform: 'YouTube', username: 'CryptoChannel', content: `YouTube video: ${query} explained`, link: '#' },
@@ -60,13 +88,13 @@ const Desktop1 = (props) => {
     ]
   }
 
-  const fetchRandom = async (query, region) => {
+  const fetchRandom = async (query: any, region: any) => {
     const apis = [fetchFacebook, fetchTwitter, fetchInstagram, fetchReddit, fetchTikTok, fetchYouTube]
     const randomAPI = apis[Math.floor(Math.random() * apis.length)]
     return await randomAPI(query, region)
   }
 
-  const fetchNarratives = async (query, source, region) => {
+  const fetchNarratives = async (query: any, source: any, region: any) => {
     setIsLoading(true)
     try {
       let results = []
@@ -110,14 +138,14 @@ const Desktop1 = (props) => {
     }
   }
 
-  const handleAPISelect = (apiId) => {
+  const handleAPISelect = (apiId: any) => {
     setSelectedAPI(apiId)
     if (searchQuery.trim()) {
       fetchNarratives(searchQuery, apiId, selectedRegion)
     }
   }
 
-  const handleRegionSelect = (regionId) => {
+  const handleRegionSelect = (regionId: any) => {
     setSelectedRegion(regionId)
     setShowRegionDropdown(false)
   }
@@ -204,7 +232,7 @@ const Desktop1 = (props) => {
           </div>
         </div>
         <div className="desktop1-frame3searchsection">
-          <button className="desktop1-frame4socialmediabuttons">
+          <div className="desktop1-frame4socialmediabuttons">
             <button className="desktop1-frame5buttonframe1" onClick={() => handleAPISelect('facebook')}>
               <div className="desktop1-group51">
                 <img
@@ -388,7 +416,7 @@ const Desktop1 = (props) => {
                 />
               </div>
             </div>
-          </button>
+          </div>
           <span className="desktop1-text10">Search by Platform</span>
           <div className="desktop1-frame6-search-row">
             <img
@@ -590,10 +618,10 @@ const Desktop1 = (props) => {
         </div>
         <div className="desktop1-framefooter">
           <div className="desktop1-footernav">
-            <Link to="/contact" className="desktop1-text16 desktop1-nav-button">Contact Us</Link>
-            <Link to="/privacy" className="desktop1-text17 desktop1-nav-button">Privacy Terms</Link>
-            <Link to="/about" className="desktop1-text18 desktop1-nav-button">About Us</Link>
-            <Link to="/donate" className="desktop1-text19 desktop1-nav-button">Donate</Link>
+            <Link href="/contact" className="desktop1-text16 desktop1-nav-button">Contact Us</Link>
+            <Link href="/privacy" className="desktop1-text17 desktop1-nav-button">Privacy Terms</Link>
+            <Link href="/about" className="desktop1-text18 desktop1-nav-button">About Us</Link>
+            <Link href="/donate" className="desktop1-text19 desktop1-nav-button">Donate</Link>
           </div>
         </div>
         <div className="desktop1-frame73">
@@ -639,20 +667,20 @@ const Desktop1 = (props) => {
           className="desktop1-rectangle2"
         />
         <div className="desktop1-rightheadernav">
-          <Link to="/feedback" className="desktop1-text20 desktop1-nav-button">
+          <Link href="/feedback" className="desktop1-text20 desktop1-nav-button">
             💬 Feedback
           </Link>
           <div className="desktop1-store-dropdown">
-            <Link to="/store" className="desktop1-text23 desktop1-nav-button desktop1-store-button">🏠 Store</Link>
+            <Link href="/store" className="desktop1-text23 desktop1-nav-button desktop1-store-button">🏠 Store</Link>
             <div className="desktop1-dropdown-menu">
-              <Link to="/store/crypto-cards" className="desktop1-dropdown-item">Crypto Cards</Link>
-              <Link to="/store/crypto-hardware" className="desktop1-dropdown-item">Crypto Hardware</Link>
-              <Link to="/store/crypto-software" className="desktop1-dropdown-item">Crypto Software / Tools</Link>
-              <Link to="/store/crypto-phones" className="desktop1-dropdown-item">Crypto Phones</Link>
+              <Link href="/store/crypto-cards" className="desktop1-dropdown-item">Crypto Cards</Link>
+              <Link href="/store/crypto-hardware" className="desktop1-dropdown-item">Crypto Hardware</Link>
+              <Link href="/store/crypto-software" className="desktop1-dropdown-item">Crypto Software / Tools</Link>
+              <Link href="/store/crypto-phones" className="desktop1-dropdown-item">Crypto Phones</Link>
             </div>
           </div>
-          <Link to="/jobboard" className="desktop1-text24 desktop1-nav-button">💼 Job Board</Link>
-          <Link to="/blog" className="desktop1-text25 desktop1-nav-button">📝 Blog</Link>
+          <Link href="/jobboard" className="desktop1-text24 desktop1-nav-button">💼 Job Board</Link>
+          <Link href="/blog" className="desktop1-text25 desktop1-nav-button">📝 Blog</Link>
         </div>
         <div className="desktop1-headernav">
           <img
@@ -661,24 +689,24 @@ const Desktop1 = (props) => {
             className="desktop1-rectangle4"
           />
           <div className="desktop1-directories-dropdown">
-            <Link to="/directories" className="desktop1-text26 desktop1-nav-button desktop1-directories-button">📂 Directories</Link>
+            <Link href="/directories" className="desktop1-text26 desktop1-nav-button desktop1-directories-button">📂 Directories</Link>
             <div className="desktop1-dropdown-menu">
-              <Link to="/directories/discord" className="desktop1-dropdown-item">Discord Server Directory</Link>
-              <Link to="/directories/telegram" className="desktop1-dropdown-item">Telegram Groups Directory</Link>
-              <Link to="/directories/onion" className="desktop1-dropdown-item">Onion Sites Directory</Link>
-              <Link to="/directories/crypto-websites" className="desktop1-dropdown-item">Crypto Websites Directory</Link>
-              <Link to="/directories/influencer" className="desktop1-dropdown-item">Influencer Directory</Link>
+              <Link href="/directories/discord" className="desktop1-dropdown-item">Discord Server Directory</Link>
+              <Link href="/directories/telegram" className="desktop1-dropdown-item">Telegram Groups Directory</Link>
+              <Link href="/directories/onion" className="desktop1-dropdown-item">Onion Sites Directory</Link>
+              <Link href="/directories/crypto-websites" className="desktop1-dropdown-item">Crypto Websites Directory</Link>
+              <Link href="/directories/influencer" className="desktop1-dropdown-item">Influencer Directory</Link>
             </div>
           </div>
-          <Link to="/pullnarratives" className="desktop1-text27 desktop1-nav-button">🧲 Pull Narratives</Link>
-          <Link to="/pushnarratives" className="desktop1-text28 desktop1-nav-button">📡 Push Narratives</Link>
+          <Link href="/pullnarratives" className="desktop1-text27 desktop1-nav-button">🧲 Pull Narratives</Link>
+          <Link href="/pushnarratives" className="desktop1-text28 desktop1-nav-button">📡 Push Narratives</Link>
           <div className="desktop1-tools-dropdown">
-            <Link to="/tools" className="desktop1-text29 desktop1-nav-button desktop1-tools-button">🤖 Tools</Link>
+            <Link href="/tools" className="desktop1-text29 desktop1-nav-button desktop1-tools-button">🤖 Tools</Link>
             <div className="desktop1-dropdown-menu">
-              <Link to="/tools/free-software" className="desktop1-dropdown-item">Free Software</Link>
-              <Link to="/tools/free-ai" className="desktop1-dropdown-item">Free AI Tools</Link>
-              <Link to="/tools/software" className="desktop1-dropdown-item">Software</Link>
-              <Link to="/tools/ai-tools" className="desktop1-dropdown-item">AI Tools</Link>
+              <Link href="/tools/free-software" className="desktop1-dropdown-item">Free Software</Link>
+              <Link href="/tools/free-ai" className="desktop1-dropdown-item">Free AI Tools</Link>
+              <Link href="/tools/software" className="desktop1-dropdown-item">Software</Link>
+              <Link href="/tools/ai-tools" className="desktop1-dropdown-item">AI Tools</Link>
             </div>
           </div>
         </div>
@@ -786,7 +814,7 @@ const Desktop1 = (props) => {
           </div>
           <div className="desktop1-dashboard-section">
             <div className="desktop1-dashboard">
-              <span role="heading" aria-level="2" className="desktop1-text80" style={{
+              <span role="heading" aria-level={2} className="desktop1-text80" style={{
                 fontSize: '20px',
                 color: 'var(--nav-color-muted, #666)',
                 fontWeight: 'normal',
@@ -795,80 +823,80 @@ const Desktop1 = (props) => {
                 alignSelf: 'center'
               }}>Dashboard&nbsp;&nbsp;&nbsp;|</span>
               <div className="desktop1-promoter-dropdown">
-                <Link to="/promoterhover" className="desktop1-nav-button desktop1-promoter-button">
+                <Link href="/promoterhover" className="desktop1-nav-button desktop1-promoter-button">
                   📣 Promoter
                 </Link>
                 <div className="desktop1-dropdown-menu">
-                  <Link to="/promoter/stats" className="desktop1-dropdown-item">Stats</Link>
-                  <Link to="/promoter/directory" className="desktop1-dropdown-item">Influencer Directory</Link>
-                  <Link to="/promoter/terms" className="desktop1-dropdown-item">Rate/Terms</Link>
-                  <Link to="/promoter/history" className="desktop1-dropdown-item">Purchase History</Link>
+                  <Link href="/promoter/stats" className="desktop1-dropdown-item">Stats</Link>
+                  <Link href="/promoter/directory" className="desktop1-dropdown-item">Influencer Directory</Link>
+                  <Link href="/promoter/terms" className="desktop1-dropdown-item">Rate/Terms</Link>
+                  <Link href="/promoter/history" className="desktop1-dropdown-item">Purchase History</Link>
                 </div>
               </div>
               <div className="desktop1-influencer-dropdown">
-                <Link to="/influencerhover" className="desktop1-nav-button desktop1-influencer-button">
+                <Link href="/influencerhover" className="desktop1-nav-button desktop1-influencer-button">
                   🎥 Influencer
                 </Link>
                 <div className="desktop1-dropdown-menu">
-                  <Link to="/influencer/stats" className="desktop1-dropdown-item">Stats</Link>
-                  <Link to="/influencer/channels" className="desktop1-dropdown-item">Main Channels</Link>
-                  <Link to="/influencer/history" className="desktop1-dropdown-item">Campaign History</Link>
-                  <Link to="/influencer/terms" className="desktop1-dropdown-item">Rate/Terms</Link>
-                  <Link to="/influencer/earnings" className="desktop1-dropdown-item">Earnings</Link>
-                  <Link to="/influencer/recruiter" className="desktop1-dropdown-item">Recruiter Info</Link>
+                  <Link href="/influencer/stats" className="desktop1-dropdown-item">Stats</Link>
+                  <Link href="/influencer/channels" className="desktop1-dropdown-item">Main Channels</Link>
+                  <Link href="/influencer/history" className="desktop1-dropdown-item">Campaign History</Link>
+                  <Link href="/influencer/terms" className="desktop1-dropdown-item">Rate/Terms</Link>
+                  <Link href="/influencer/earnings" className="desktop1-dropdown-item">Earnings</Link>
+                  <Link href="/influencer/recruiter" className="desktop1-dropdown-item">Recruiter Info</Link>
                 </div>
               </div>
               <div className="desktop1-recruiter-dropdown">
-                <Link to="/recruiterhover" className="desktop1-nav-button desktop1-recruiter-button">
+                <Link href="/recruiterhover" className="desktop1-nav-button desktop1-recruiter-button">
                   🎯 Recruiter
                 </Link>
                 <div className="desktop1-dropdown-menu">
-                  <Link to="/recruiter/stats" className="desktop1-dropdown-item">Stats</Link>
-                  <Link to="/recruiter/earnings" className="desktop1-dropdown-item">Earnings</Link>
-                  <Link to="/recruiter/referral" className="desktop1-dropdown-item">Referral Link + QR</Link>
+                  <Link href="/recruiter/stats" className="desktop1-dropdown-item">Stats</Link>
+                  <Link href="/recruiter/earnings" className="desktop1-dropdown-item">Earnings</Link>
+                  <Link href="/recruiter/referral" className="desktop1-dropdown-item">Referral Link + QR</Link>
                 </div>
               </div>
               <div className="desktop1-bounty-dropdown">
-                <Link to="/bountyhover" className="desktop1-nav-button desktop1-bounty-button">
+                <Link href="/bountyhover" className="desktop1-nav-button desktop1-bounty-button">
                   💰 Bounties/Ads
                 </Link>
                 <div className="desktop1-dropdown-menu">
-                  <Link to="/bounty/board" className="desktop1-dropdown-item">Bounty Board</Link>
-                  <Link to="/bounty/active" className="desktop1-dropdown-item">My Active Bounties</Link>
-                  <Link to="/bounty/completed" className="desktop1-dropdown-item">Completed Bounties</Link>
-                  <Link to="/bounty/place" className="desktop1-dropdown-item">Place Bounty</Link>
+                  <Link href="/bounty/board" className="desktop1-dropdown-item">Bounty Board</Link>
+                  <Link href="/bounty/active" className="desktop1-dropdown-item">My Active Bounties</Link>
+                  <Link href="/bounty/completed" className="desktop1-dropdown-item">Completed Bounties</Link>
+                  <Link href="/bounty/place" className="desktop1-dropdown-item">Place Bounty</Link>
                 </div>
               </div>
               <div className="desktop1-scoreboard-dropdown">
-                <Link to="/scoreboard" className="desktop1-nav-button desktop1-scoreboard-button">
+                <Link href="/scoreboard" className="desktop1-nav-button desktop1-scoreboard-button">
                   🏆 Scoreboard
                 </Link>
                 <div className="desktop1-dropdown-menu">
-                  <Link to="/scoreboard/promoters" className="desktop1-dropdown-item">Top Promoters</Link>
-                  <Link to="/scoreboard/influencers" className="desktop1-dropdown-item">Top Influencers</Link>
-                  <Link to="/scoreboard/recruiters" className="desktop1-dropdown-item">Top Recruiters</Link>
+                  <Link href="/scoreboard/promoters" className="desktop1-dropdown-item">Top Promoters</Link>
+                  <Link href="/scoreboard/influencers" className="desktop1-dropdown-item">Top Influencers</Link>
+                  <Link href="/scoreboard/recruiters" className="desktop1-dropdown-item">Top Recruiters</Link>
                 </div>
               </div>
               <div className="desktop1-earnings-dropdown">
-                <Link to="/earnings" className="desktop1-nav-button desktop1-earnings-button">
+                <Link href="/earnings" className="desktop1-nav-button desktop1-earnings-button">
                   💸 Earnings
                 </Link>
                 <div className="desktop1-dropdown-menu">
-                  <Link to="/earnings/balance" className="desktop1-dropdown-item">Current Balance</Link>
-                  <Link to="/earnings/lifetime" className="desktop1-dropdown-item">Lifetime Earnings</Link>
-                  <Link to="/earnings/pending" className="desktop1-dropdown-item">Pending Payouts</Link>
-                  <Link to="/earnings/withdraw" className="desktop1-dropdown-item">Withdraw / Payout Settings</Link>
+                  <Link href="/earnings/balance" className="desktop1-dropdown-item">Current Balance</Link>
+                  <Link href="/earnings/lifetime" className="desktop1-dropdown-item">Lifetime Earnings</Link>
+                  <Link href="/earnings/pending" className="desktop1-dropdown-item">Pending Payouts</Link>
+                  <Link href="/earnings/withdraw" className="desktop1-dropdown-item">Withdraw / Payout Settings</Link>
                 </div>
               </div>
               <div className="desktop1-profile-dropdown">
-                <Link to="/settings" className="desktop1-nav-button desktop1-profile-button">
+                <Link href="/settings" className="desktop1-nav-button desktop1-profile-button">
                   ⚙️ Profile
                 </Link>
                 <div className="desktop1-dropdown-menu">
-                  <Link to="/profile/info" className="desktop1-dropdown-item">Personal Info</Link>
-                  <Link to="/profile/payout" className="desktop1-dropdown-item">Payout Methods</Link>
-                  <Link to="/profile/accounts" className="desktop1-dropdown-item">Linked Accounts</Link>
-                  <Link to="/profile/notifications" className="desktop1-dropdown-item">Notifications</Link>
+                  <Link href="/profile/info" className="desktop1-dropdown-item">Personal Info</Link>
+                  <Link href="/profile/payout" className="desktop1-dropdown-item">Payout Methods</Link>
+                  <Link href="/profile/accounts" className="desktop1-dropdown-item">Linked Accounts</Link>
+                  <Link href="/profile/notifications" className="desktop1-dropdown-item">Notifications</Link>
                 </div>
               </div>
             </div>
